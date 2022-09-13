@@ -2,7 +2,7 @@ class Solution {
     int m=(int)1e9+7;
     public int countGoodNumbers(long n) {
         
-        long first = (n%2==0?(n/2):(n/2)+1);
+        long first = n%2==0?n/2:n/2+1;
         long second = n/2;
         
         long mul5 = power(5,first)%m;
