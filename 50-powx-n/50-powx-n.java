@@ -15,7 +15,7 @@ class Solution {
             else
             {
                 ans=ans*x;
-                tempP=tempP-1;
+                tempP--;
             }
         }
         
