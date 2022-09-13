@@ -1,4 +1,5 @@
 class Solution {
+    //Binary Exponentiation O(log n)
     public double myPow(double x, int n) {
         double ans = 1.0;
         long tempP = n;
