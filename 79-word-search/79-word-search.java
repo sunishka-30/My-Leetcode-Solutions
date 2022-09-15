@@ -24,14 +24,14 @@ class Solution {
         }
         
         char ch = mat[i][j];
-        mat[i][j]='0';
+        mat[i][j]='0'; //to prevent from reusing the character
         
         dfs(mat,i+1,j,ind+1,target,ans);
         dfs(mat,i-1,j,ind+1,target,ans);
         dfs(mat,i,j+1,ind+1,target,ans);
         dfs(mat,i,j-1,ind+1,target,ans);
         
-        mat[i][j]=ch;
+        mat[i][j]=ch; //to use it while backtracking
         
         
     }
