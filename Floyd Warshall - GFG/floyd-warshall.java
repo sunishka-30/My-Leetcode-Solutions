@@ -65,6 +65,13 @@ class Solution
             }
         }
         
+        // to detect negative cycles 
+        // for(int i=0;i<n;i++)
+        // {
+        //     if(matrix[i][i]<0)
+        //     System.out.println("Negative cycle");
+        // }
+        
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<n;j++)
