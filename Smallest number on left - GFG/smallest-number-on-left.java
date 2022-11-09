@@ -34,7 +34,7 @@ class Solution{
         //code here
         List<Integer> ans = new ArrayList<>();
         Stack<Integer> st = new Stack<>();
-        for(int i=0;i<n;i++) 
+        for(int i=0;i<n;i++) //for smallest number on right for(int i=n-1;i>=0;i--)
         {
             if(st.size()==0)
             ans.add(-1);
@@ -53,7 +53,7 @@ class Solution{
             }
             st.push(l[i]);
         }
-
+        // for smallest number on right Collections.reverse(ans);
         
         return ans;
     } 
