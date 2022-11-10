@@ -37,9 +37,53 @@ class GFG
 
 class Solution
 {
+    //BFS
+    
+    // public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+    // {
+    //     // Code here
+    //     int[]color = new int[V];
+    //     for(int i=0;i<V;i++)
+    //     color[i]=-1;
+        
+    //     for(int i=0;i<V;i++) //for connected components
+    //     {
+    //         if(color[i]==-1)
+    //         {
+    //             if(check(i,V,adj,color)==false)
+    //             return false;
+    //         }
+            
+    //     }
+    //     return true;
+    // }
+    
+    // static boolean check(int start, int V,  ArrayList<ArrayList<Integer>>adj, int[]color )
+    // {
+    //     Queue<Integer> q = new LinkedList<>();
+    //     q.add(start);
+    //     color[start]=0;
+    //     while(!q.isEmpty())
+    //     {
+    //         int node = q.poll();
+    //         for(Integer it: adj.get(node))
+    //         {
+    //             if(color[it]==-1)
+    //             {
+    //                 color[it]=1-color[node];
+    //                 q.add(it);
+    //             }
+    //             else if(color[it]==color[node])
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
+    
+    //DFS
+    
     public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
     {
-        // Code here
         int[]color = new int[V];
         for(int i=0;i<V;i++)
         color[i]=-1;
@@ -48,7 +92,7 @@ class Solution
         {
             if(color[i]==-1)
             {
-                if(check(i,V,adj,color)==false)
+                if(check(i,V,adj,color,0)==false)
                 return false;
             }
             
@@ -56,24 +100,18 @@ class Solution
         return true;
     }
     
-    static boolean check(int start, int V,  ArrayList<ArrayList<Integer>>adj, int[]color )
+    static boolean check(int start, int V,ArrayList<ArrayList<Integer>>adj, int[]color,int col )
     {
-        Queue<Integer> q = new LinkedList<>();
-        q.add(start);
-        color[start]=0;
-        while(!q.isEmpty())
+        color[start]=col;
+        for(Integer it:adj.get(start))
         {
-            int node = q.poll();
-            for(Integer it: adj.get(node))
+            if(color[it]==-1)
             {
-                if(color[it]==-1)
-                {
-                    color[it]=1-color[node];
-                    q.add(it);
-                }
-                else if(color[it]==color[node])
+                if(check(it,V,adj,color,1-col)==false)
                 return false;
             }
+            else if(color[it]==color[start])
+            return false;
         }
         return true;
     }
