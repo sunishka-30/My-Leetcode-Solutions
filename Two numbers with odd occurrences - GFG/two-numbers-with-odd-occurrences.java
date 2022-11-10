@@ -37,37 +37,35 @@ class Solution
     public int[] twoOddNum(int Arr[], int N)
     {
         // code here
-        int[]ans=new int[2];
-        Map<Integer,Integer> mp = new HashMap<>();
+        int xor=0;
         for(int i=0;i<N;i++)
         {
-            mp.put(Arr[i],mp.getOrDefault(Arr[i],0)+1);
+            xor=xor^Arr[i];
         }
+        int ar[]=new int[2];
+        int set = xor & ~(xor-1);
+        int s=0;
         int c=0;
-        for(Map.Entry<Integer,Integer>entry:mp.entrySet())
+        for(int i=0;i<N;i++)
         {
-            if(entry.getValue()%2!=0)
+            if((set&Arr[i])>0)
             {
-                ans[c++]=entry.getKey();
+                c=c^Arr[i];
             }
-            
+            else
+            s=s^Arr[i];
+        }
+        ar[0]=c;
+        ar[1]=s;
+        if(c>=s)
+        return ar;
+        else
+        {
+            int temp=ar[0];
+            ar[0]=ar[1];
+            ar[1]=temp;
+            return ar;
         }
         
-        for(int i=0;i<1;i++)
-        {
-            if(ans[i]<ans[i+1])
-            {
-                swap(i,i+1,ans);
-                break;
-            }
-        }
-        return ans;
-    }
-    
-    static void swap(int i, int j, int[]ans)
-    {
-        int temp = ans[i];
-        ans[i]=ans[i+1];
-        ans[i+1]=temp;
     }
 }
