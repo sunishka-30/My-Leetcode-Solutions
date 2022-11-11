@@ -32,42 +32,82 @@ class DriverClass {
 /*Complete the function below*/
 
 class Solution {
-    // Function to detect cycle in a directed graph.
+    // Topo Sort BFS
+    
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
-        // code here
-        int[]vis = new int[V];
-        int[]pathVis = new int[V];
+        int[]inDegree = new int[V];
         for(int i=0;i<V;i++)
         {
-            if(vis[i]==0)
+            for(Integer it: adj.get(i))
+            inDegree[it]++;
+        }
+        
+        Queue<Integer> q = new LinkedList<>();
+        
+        for(int i=0;i<V;i++)
+        {
+            if(inDegree[i]==0)
+            q.add(i);
+        }
+        
+       int cnt=0;
+        int i=0;
+        while(!q.isEmpty())
+        {
+            int node = q.peek();
+            q.remove();
+            cnt++;
+            for(Integer it: adj.get(node))
             {
-                if(dfs(i,adj,vis,pathVis)==true)
-                return true;
+                inDegree[it]--;
+                if(inDegree[it]==0)
+                {
+                    q.add(it);
+                }
             }
         }
+        if(cnt<V)
+        return true;
         return false;
-        
     }
     
-    static boolean dfs(int node, ArrayList<ArrayList<Integer>> adj, int[]vis, int[]pathVis )
-    {
-        vis[node]=1;
-        pathVis[node]=1;
+    // DFS
+
+    // public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+    //     // code here
+    //     int[]vis = new int[V];
+    //     int[]pathVis = new int[V];
+    //     for(int i=0;i<V;i++)
+    //     {
+    //         if(vis[i]==0)
+    //         {
+    //             if(dfs(i,adj,vis,pathVis)==true)
+    //             return true;
+    //         }
+    //     }
+    //     return false;
         
-        for(Integer it: adj.get(node))
-        {
-            if(vis[it]==0)
-            {
-                if(dfs(it,adj,vis,pathVis)==true)
-                return true;
+    // }
+    
+    // static boolean dfs(int node, ArrayList<ArrayList<Integer>> adj, int[]vis, int[]pathVis )
+    // {
+    //     vis[node]=1;
+    //     pathVis[node]=1;
+        
+    //     for(Integer it: adj.get(node))
+    //     {
+    //         if(vis[it]==0)
+    //         {
+    //             if(dfs(it,adj,vis,pathVis)==true)
+    //             return true;
             
-            }
-            else if(pathVis[it]==1)
-            return true;
-        }
+    //         }
+    //         else if(pathVis[it]==1)
+    //         return true;
+    //     }
         
-        pathVis[node]=0;
-        return false;
+    //     pathVis[node]=0;
+    //     return false;
         
-    }
+    // }
 }
