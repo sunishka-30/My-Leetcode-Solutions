@@ -59,40 +59,80 @@ class Main {
 
 
 class Solution
-{
-    //Function to return list containing vertices in Topological order. 
+{   // Kahn's Algo BFS
     static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
     {
-        // add your code here
-        int[]ans = new int[V];
-        Stack<Integer> st = new Stack<>();
-        int[]vis = new int[V];
+        int[]inDegree = new int[V];
         for(int i=0;i<V;i++)
         {
-            if(vis[i]==0)
-            {
-                dfs(i,adj,vis,st);
-            }
+            for(Integer it: adj.get(i))
+            inDegree[it]++;
         }
         
-        int p=0;
-        while(!st.isEmpty())
+        Queue<Integer> q = new LinkedList<>();
+        
+        for(int i=0;i<V;i++)
         {
-            ans[p++]=st.peek();
-            st.pop();
+            if(inDegree[i]==0)
+            q.add(i);
         }
-        return ans;
-    }
-    
-    static void dfs(int node, ArrayList<ArrayList<Integer>> adj, int[]vis, Stack<Integer>st)
-    {
-        vis[node]=1;
-        for(Integer it:adj.get(node))
+        
+        int[]topoSort = new int[V];
+        int i=0;
+        while(!q.isEmpty())
         {
-            if(vis[it]==0){
-                dfs(it,adj,vis,st);
+            int node = q.peek();
+            q.remove();
+            topoSort[i++]=node;
+            for(Integer it: adj.get(node))
+            {
+                inDegree[it]--;
+                if(inDegree[it]==0)
+                {
+                    q.add(it);
+                }
             }
         }
-        st.push(node);
+        return topoSort;
     }
+    
+    
+    
+    //DFS
+    
+    
+    // static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
+    // {
+    //     // add your code here
+    //     int[]ans = new int[V];
+    //     Stack<Integer> st = new Stack<>();
+    //     int[]vis = new int[V];
+    //     for(int i=0;i<V;i++)
+    //     {
+    //         if(vis[i]==0)
+    //         {
+    //             dfs(i,adj,vis,st);
+    //         }
+    //     }
+        
+    //     int p=0;
+    //     while(!st.isEmpty())
+    //     {
+    //         ans[p++]=st.peek();
+    //         st.pop();
+    //     }
+    //     return ans;
+    // }
+    
+    // static void dfs(int node, ArrayList<ArrayList<Integer>> adj, int[]vis, Stack<Integer>st)
+    // {
+    //     vis[node]=1;
+    //     for(Integer it:adj.get(node))
+    //     {
+    //         if(vis[it]==0){
+    //             dfs(it,adj,vis,st);
+    //         }
+    //     }
+    //     st.push(node);
+    // }
 }
