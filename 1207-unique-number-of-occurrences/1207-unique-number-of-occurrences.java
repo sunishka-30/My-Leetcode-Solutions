@@ -5,16 +5,9 @@ class Solution {
         {
             mp.put(arr[i],mp.getOrDefault(arr[i],0)+1);
         }
-        List<Integer> l = new ArrayList<>();
-        for(Map.Entry<Integer,Integer> entry: mp.entrySet())
-        {
-            l.add(entry.getValue());
-        }
-        Set<Integer> s = new HashSet<>();
-        for(Integer it:l)
-        {
-            s.add(it);
-        }
-        return s.size()==l.size();
+        
+        Set<Integer> s = new HashSet<>(mp.values());
+       
+        return s.size()==mp.size();
     }
 }
